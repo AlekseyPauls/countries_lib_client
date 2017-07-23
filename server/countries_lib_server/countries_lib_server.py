@@ -1,28 +1,19 @@
+# -*- coding: utf-8 -*-
 import os, shelve, difflib
 from flask import Flask, g, jsonify, request
 
 
-# Объявление параметров по умолчанию
-DATABASE = ''
-DEBUG = True
-
-
 app = Flask(__name__)
-app.config.from_object(__name__)
-
-
-app.config.update(dict(
-    DATABASE=os.path.join(app.root_path, 'database', 'countries_db'),
-    DEBUG=True))
 
 
 def connect_db():
-    return shelve.open(app.config['DATABASE'])
+    database = os.path.join(app.root_path, 'database', 'countries_db')
+    return shelve.open(database)
 
 
 def get_db():
-    """Если ещё нет соединения с базой данных, открыть новое - для
-    текущего контекста приложения"""
+    """ Если ещё нет соединения с базой данных, открыть новое - для
+    текущего контекста приложения """
     
     if not hasattr(g, 'db'):
         g.db = connect_db()
@@ -31,20 +22,24 @@ def get_db():
 
 @app.teardown_appcontext
 def close_db(error):
-    """Closes the database again at the end of the request."""
+    """ Закрывает базу данных по окончанию запроса """
+
     if hasattr(g, 'db'):
         g.db.close()
 
 
 @app.route('/', methods=['GET'])
 def normalize_country_name():
+    """ Нормализация (нахождение корректного) названия страны """
+
+    if request.args.get('posname') == None or request.args.get('dif_acc') == None:
+        return jsonify('This is the "countries_lib_server". Please use the "countries_lib_client" to access '
+                       'the functionality of this service.')
     countries_db = get_db()
-    print(countries_db['ru'])
     posname = request.args.get('posname')
     dif_acc = float(request.args.get('dif_acc'))
     if type(posname) is not str or type(dif_acc) is not float or dif_acc <= 0.0 or dif_acc >= 1.0:
-        # Код состояния 400 в REST API означает 'Bad Request'
-        return jsonify(400)
+        return jsonify('Invalid arguments')
     try:
         posname = str(posname).lower()
         # Очищаем входную строку от знаков препинания, которые не встречаются в названиях стран
@@ -93,38 +88,35 @@ def normalize_country_name():
     # На всякий случай перехватывается Exception. Не смотря на то,
     # что ошибка здесь может быть только в отсутствии корректной базы данных
     except Exception:
-        # Код состояния 500 в REST API означает 'Internal Server Error'
-        return jsonify(500)
+        return jsonify('DatabaseError')
 
 
 @app.route('/', methods=['POST'])
 def match_or_del_country_name():
+    """ Добавление или удаление возможных названий """
     countries_db = get_db()
-    key = request.form.get('key').lower()
-    value = request.form.get('value')
-    priority = request.form.get('priority')
-    if type(key) is str and type(value) is str and type(priority) is int and (priority == 1 or priority == 2):
+    key = str(request.form.get('key')).lower()
+    value = str(request.form.get('value'))
+    priority = int(request.form.get('priority'))
+    if type(key) is str and type(value) is str and value != 'DELETE' and \
+                    type(priority) is int and (priority == 1 or priority == 2):
         # Если условия выполняются, добавляем запись в б/д
         try:
             countries_db[key.lower()] = str(priority) + value
-            return jsonify(200)
+            return jsonify('Success')
         # На всякий случай перехватывается Exception. Не смотря на то,
         # что ошибка здесь может быть только в отсутствии корректной базы данных
         except Exception:
-            # Код состояния 500 в REST API означает 'Internal Server Error'
-            return jsonify(500)
-    elif type(key) is str and value == 'DELETE':
+            return jsonify('DatabaseError')
+    elif type(key) is str and value == 'DELETE' and priority == 1:
         try:
             if key.lower() in countries_db.keys():
                 del countries_db[key.lower()]
-            return jsonify(200)
+            return jsonify('Success')
         except Exception:
-            # Код состояния 500 в REST API означает 'Internal Server Error'
-            return jsonify(500)
-    else:
-        # Код состояния 400 в REST API означает 'Bad Request'
-        return jsonify(400)
+            return jsonify('DatabaseError')
+    return jsonify('Invalid arguments')
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True, host='0.0.0.0')

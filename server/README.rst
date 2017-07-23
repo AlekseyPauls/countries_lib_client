@@ -1,6 +1,9 @@
 ﻿===================================================
-countries_lib_client - нормализация названия страны
+countries_lib_server - нормализация названия страны
 ===================================================
+
+https://hub.docker.com/r/alekseypauls/countries_lib_server/
+docker pull alekseypauls/countries_lib_server
 
 --------
 Описание

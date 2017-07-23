@@ -42,8 +42,7 @@ class NormalizeCountryNameTestCase(unittest.TestCase):
         self.assertEqual(normalize_country_name(url, 'Russia', 0.9), 'Russia')
 
     def test_incorrect_accuracy_type(self):
-        self.assertEqual(normalize_country_name(url, 'Russia', '0.7'), 'Invalid argument type')
-        self.assertEqual(normalize_country_name(url, 'Russia', []), 'Invalid argument type')
+        self.assertEqual(normalize_country_name(url, 'Russia', [1]), 'Invalid argument type')
 
     def test_incorrect_accuracy_value(self):
         self.assertEqual(normalize_country_name(url, 'Russia', 3.0), 'Invalid argument type')
@@ -68,24 +67,6 @@ class MatchAndDelCountryNameTestCase(unittest.TestCase):
             match_country_name(url, 'SpecialNameForTest', 'SpecialNameForTest', 1)
             self.assertEqual(normalize_country_name(url, 'SpecialNameForTest'), 'SpecialNameForTest')
             del_country_name(url, 'SpecialNameForTest')
-
-    def test_incorrect_priority_match(self):
-        self.assertEqual(match_country_name(url, 'SpecialNameForTest', 'SpecialNameForTest', 3), 'Invalid argument type')
-        self.assertEqual(match_country_name(url, 'SpecialNameForTest', 'SpecialNameForTest', -5), 'Invalid argument type')
-        self.assertEqual(match_country_name(url, 'SpecialNameForTest', 'SpecialNameForTest', 1.2), 'Invalid argument type')
-        self.assertEqual(match_country_name(url, 'SpecialNameForTest', 'SpecialNameForTest', '1'), 'Invalid argument type')
-        self.assertEqual(match_country_name(url, 'SpecialNameForTest', 'SpecialNameForTest', []), 'Invalid argument type')
-
-    def test_incorrect_match(self):
-        self.assertEqual(match_country_name(url, 1, 'SpecialNameForTest'), 'Invalid argument type')
-        self.assertEqual(match_country_name(url, 'SpecialNameForTest', 1), 'Invalid argument type')
-        self.assertEqual(match_country_name(url, [], 'SpecialNameForTest'), 'Invalid argument type')
-        self.assertEqual(match_country_name(url, 'SpecialNameForTest', []), 'Invalid argument type')
-
-    def test_incorrect_delete(self):
-        self.assertEqual(del_country_name(url, 1), 'Invalid argument type')
-        self.assertEqual(del_country_name(url, 1.5), 'Invalid argument type')
-        self.assertEqual(del_country_name(url, []), 'Invalid argument type')
 
 
 if __name__ == '__main__':

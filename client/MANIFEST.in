@@ -1,1 +1,1 @@
-recursive-include countries_lib_client\ tests.py
+recursive-include countries_lib_client/ tests.py

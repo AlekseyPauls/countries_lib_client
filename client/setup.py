@@ -7,5 +7,5 @@ setup(
     version='1.0',
     include_package_data=True,
     packages=find_packages(),
-    test_suite='tests',
+    test_suite='tests.py',
 )
