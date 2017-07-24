@@ -6,7 +6,7 @@ countries_lib_client - нормализация названия страны
 Описание
 --------
 
-Данный пакет предоставляет набор функций для обращения к веб-сервису, предназначеному для нормализации (нахождения корректного) 
+Данный пакет предоставляет набор функций для обращения к веб-сервису, предназначенному для нормализации (нахождения корректного) 
 названия страны.
 
 ---------
@@ -17,10 +17,12 @@ countries_lib_client - нормализация названия страны
 
 Выполните команду **pip install git+https://github.com/AlekseyPauls/countries_library_cs/client** 
 
-Выполните следующие команды: (Доделать)
+Выполните следующие команды:
 
-wget https://raw.githubusercontent.com/AlekseyPauls/countries_library_cs/master/dist/countries_lib-1.0.tar.gz 
+wget https://github.com/AlekseyPauls/countries_library_cs/blob/master/client/dist/countries_lib_client-1.0.tar.gz?raw=true
+
 pip install countries_lib-1.0.tar.gz
+
 sudo rm countries_lib-1.0.tar.gz
 
 Вариант 3:
@@ -186,8 +188,7 @@ sudo rm countries_lib-1.0.tar.gz
 
 #. test_incorrect_accuracy_type - проверяет ввозможность ввода некорректного (тип) необязательного аргумента **dif_acc** в функции **normalize_country_name**
 
-#. test_incorrect_accuracy_value - проверяет ввозможность ввода некорректного (значение) необязательного аргумента **dif_acc** в функции 
-**normalize_country_name**
+#. test_incorrect_accuracy_value - проверяет ввозможность ввода некорректного (значение) необязательного аргумента **dif_acc** в функции **normalize_country_name**
 
 #. test_non_existing_object_delete - проверяет удаление несуществующего ключа в функции **del_country_name**
 
@@ -195,5 +196,4 @@ sudo rm countries_lib-1.0.tar.gz
 
 #. test_existing_object_delete - проверяет удаление существующего ключа в функции **del_country_name**
 
-#. test_correct_priority_match - проверяет добавление нового ключа и значения в функции **match_country_name**, причем необязательный аргумент 
-**priority** корректен
+#. test_correct_priority_match - проверяет добавление нового ключа и значения в функции **match_country_name**, причем необязательный аргумент **priority** корректен
