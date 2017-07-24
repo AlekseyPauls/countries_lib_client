@@ -55,13 +55,26 @@ def normalize_country_name():
         # Проверка на длину - чтобы исключить варианты, когда совпало только начало или другая часть строки
         posname_1 = difflib.get_close_matches(posname, countries_db.keys(), n=1, cutoff=dif_acc)
         if posname_1 != [] and countries_db[posname_1[0]][0] == '1' and \
-                len(posname) - len(posname_1[0]) <= 1:
-            return jsonify(countries_db[posname_1[0]][1:])
+                                len(posname) - len(posname_1[0]) <= 1:
+            return countries_db[posname_1[0]][1:]
         # Ищем совпадение всей строки и значения с приоритетом '2'
         posname_2 = difflib.get_close_matches(posname, countries_db.keys(), n=1, cutoff=dif_acc)
         if posname_2 != [] and countries_db[posname_2[0]][0] == '2' and \
-                len(posname) - len(posname_2[0]) <= 1:
-            return jsonify(countries_db[posname_2[0]][1:])
+                                len(posname) - len(posname_2[0]) <= 1:
+            return countries_db[posname_2[0]][1:]
+        # Ищем совпадение всей строки без пробелов и значения с приоритетом '1'
+        posname_3 = posname.replace(' ', '')
+        posname_3 = difflib.get_close_matches(posname_3, countries_db.keys(), n=1, cutoff=dif_acc)
+        if posname_3 != [] and countries_db[posname_3[0]][0] == '1' and \
+                                len(posname.replace(' ', '')) - len(posname_3[0].replace(' ', '')) <= 1:
+            return countries_db[posname_3[0]][1:]
+        # Ищем совпадение всей строки без пробелов и значения с приоритетом '2'
+        posname_4 = posname.replace(' ', '')
+        posname_4 = difflib.get_close_matches(posname_4, countries_db.keys(), n=1, cutoff=dif_acc)
+        if posname_4 != [] and countries_db[posname_4[0]][0] == '2' and \
+                                len(posname.replace(' ', '')) - len(posname_4[0].replace(' ', '')) <= 1:
+            return countries_db[posname_4[0]][1:]
+
         # Делим входную строку на слова, разделитель - пробел
         parts = posname.split(" ")
         for part in parts:
