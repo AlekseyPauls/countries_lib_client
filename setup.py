@@ -9,7 +9,6 @@ setup(
     packages=find_packages(),
     test_suite='tests.py',
     install_requires=[
-        'requests',
-        'json'
+        'requests'
     ]
 )
