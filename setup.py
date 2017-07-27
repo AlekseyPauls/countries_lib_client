@@ -8,4 +8,7 @@ setup(
     include_package_data=True,
     packages=find_packages(),
     test_suite='tests.py',
+    install_requires=[
+        requests
+    ]
 )
