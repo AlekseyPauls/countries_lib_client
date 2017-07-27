@@ -18,7 +18,7 @@ class NormalizeCountryNameTestCase(unittest.TestCase):
         self.assertEqual(normalize_country_name(url, 'russia'), 'Russia')
 
     def test_missed_letter(self):
-        self.assertEqual(normalize_country_name(url, 'Rusia'), 'Russia')
+        self.assertEqual(normalize_country_name(url, 'Russi'), 'Russia')
 
     def test_excess_letter(self):
         self.assertEqual(normalize_country_name(url, 'Russiaa'), 'Russia')

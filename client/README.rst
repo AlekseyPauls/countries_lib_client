@@ -17,6 +17,8 @@ countries_lib_client - нормализация названия страны
 
 Выполните команду **pip install git+https://github.com/AlekseyPauls/countries_library_cs/client** 
 
+Вариант 2:
+
 Выполните следующие команды:
 
 wget https://github.com/AlekseyPauls/countries_library_cs/blob/master/client/dist/countries_lib_client-1.0.tar.gz?raw=true
@@ -62,7 +64,7 @@ sudo rm countries_lib-1.0.tar.gz
 перевод названия страны, если приоритет равен **1**, и все остальное, если приоритет равен **2**. Так как большинство ключей, 
 подходящих под приоритет **1**, уже в базе, то возможно задать приоритет по умолчанию равный **2**. 
 
-Выдает строку **'Invalid argument type'** типа **string** , если хотя бы один из аргументов задан неправильно (имеет 
+Выдает строку **'Invalid argument type'** типа **string**, если хотя бы один из аргументов задан неправильно (имеет 
 некорректный тип или значение), строку **'DatabaseError'**, если произошла ошибка во время открытия базы данных по пути 
 из переменной **DB_PATH**, и **Success** если добавление прошло успешно.
 
@@ -76,7 +78,7 @@ sudo rm countries_lib-1.0.tar.gz
 Принимает на вход два обязательных аргумента **url** и **key** типа **string** - адрес сервера и возможное название, которое 
 нужно удалить из базы данных, соответсвтенно.
 
-Выдает строку **'Invalid argument type'** типа **string** , аргумент задан неправильно (имеет некорректный тип или значение), 
+Выдает строку **'Invalid argument type'** типа **string**, аргумент задан неправильно (имеет некорректный тип или значение), 
 строку **'DatabaseError'**, если произошла ошибка во время открытия базы данных по пути из переменной **DB_PATH**, и **Success**, если удаление прошло успешно.
 
 ----------
@@ -94,7 +96,7 @@ sudo rm countries_lib-1.0.tar.gz
     # Сервер запущен на локальном хосте
     url = 'http://0.0.0.0:5000/'
 	
-    # Вывод корректные названия для вариантов из списка:
+    # Вывод корректных названий для вариантов из списка:
     test_list = ['USA', 'US', 'Amurica!!!', 'NewYork', 'Untgd States of America', 'Paris, USA', 'agagagag']
     for variant in test_list:
         print(variant, ' - ', country_client.normalize_country_name(url, variant))
