@@ -19,16 +19,6 @@ countries_lib_client - нормализация названия страны
 
 Вариант 2:
 
-Выполните следующие команды:
-
-wget https://github.com/AlekseyPauls/countries_library_cs/blob/master/client/dist/countries_lib_client-1.0.tar.gz?raw=true
-
-pip install countries_lib-1.0.tar.gz
-
-sudo rm countries_lib-1.0.tar.gz
-
-Вариант 3:
-
 Для установки загрузите вручную countries_lib_client-1.0.tar.gz из директории dist данного репозитория и выполните команду 
 **pip instal countries_lib_client-1.0.tar.gz** в директории, в которую загружен файл. 
 
