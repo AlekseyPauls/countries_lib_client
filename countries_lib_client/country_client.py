@@ -19,6 +19,3 @@ def del_country_name(url, key):
     data = {'key': key, 'value': 'DELETE', 'priority': 1}
     r = requests.post(url, data=data)
     return r.text[1:-2]
-
-if __name__ == '__main__':
-    print(normalize_country_name('http://0.0.0.0:5000/', 'Rusia!!!!!'))

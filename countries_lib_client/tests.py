@@ -42,11 +42,11 @@ class NormalizeCountryNameTestCase(unittest.TestCase):
         self.assertEqual(normalize_country_name(url, 'Russia', 0.9), 'Russia')
 
     def test_incorrect_accuracy_type(self):
-        self.assertEqual(normalize_country_name(url, 'Russia', [1]), 'Invalid argument type')
+        self.assertEqual(normalize_country_name(url, 'Russia', [1]), 'Invalid arguments')
 
     def test_incorrect_accuracy_value(self):
-        self.assertEqual(normalize_country_name(url, 'Russia', 3.0), 'Invalid argument type')
-        self.assertEqual(normalize_country_name(url, 'Russia', -0.5), 'Invalid argument type')
+        self.assertEqual(normalize_country_name(url, 'Russia', 3.0), 'Invalid arguments')
+        self.assertEqual(normalize_country_name(url, 'Russia', -0.5), 'Invalid arguments')
 
 
 class MatchAndDelCountryNameTestCase(unittest.TestCase):
